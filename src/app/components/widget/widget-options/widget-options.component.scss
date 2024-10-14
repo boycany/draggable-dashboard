@@ -1,3 +1,7 @@
+@use "@angular/material" as mat;
+
+$theme: mat.define-theme();
+
 :host {
   position: absolute;
   z-index: 2;
@@ -24,6 +28,20 @@
     gap: 8px;
     align-items: center;
     margin-bottom: 8px;
+  }
+
+  // .remove-widget-button {
+  //   position: absolute;
+  //   top: 4px;
+  //   left: 4px;
+  // }
+
+  .remove-widget-button {
+    position: absolute;
+    top: 4px;
+    // left: 4px;
+    right: 50px;
+    @include mat.icon-button-color($theme, $color-variant: error);
   }
 
   .close-button {

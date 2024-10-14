@@ -14,8 +14,9 @@
     }
   </mat-menu>
 </div>
-<div class="dashboard-widgets">
+<div #dashboard class="dashboard-widgets">
   @for (w of store.addedWidgets(); track w.id) {
+    <!-- If a grid item has children, they should be surrounded by a single container element. -->
     <app-widget [data]="w"></app-widget>
   }
 </div>

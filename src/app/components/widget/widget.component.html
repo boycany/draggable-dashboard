@@ -1,9 +1,15 @@
-<div class="container mat-elevation-z3">
-  <h3 class="m-0">{{ data().label }}</h3>
+<!-- each grid item must have a single direct child when using animate-css-grid -->
+<div
+  class="container mat-elevation-z3"
+  [style.background-color]="data().backgroundColor ?? 'white'"
+  [style.color]="data().color ?? 'inherit'"
+>
+  <h5 class="m-0">{{ data().label }}</h5>
   <button
     mat-icon-button
     class="settings-button"
     (click)="showOptions.set(true)"
+    [style.color]="data().color ?? 'inherit'"
   >
     <mat-icon>settings</mat-icon>
   </button>

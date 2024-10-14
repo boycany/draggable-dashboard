@@ -1,3 +1,10 @@
+<button
+  mat-icon-button
+  class="remove-widget-button"
+  (click)="store.removeWidget(data().id)"
+>
+  <mat-icon>remove</mat-icon>
+</button>
 <button mat-icon-button class="close-button" (click)="showOptions.set(false)">
   <mat-icon>close</mat-icon>
 </button>

@@ -2,6 +2,8 @@ import { computed, Injectable, signal } from '@angular/core';
 import { Widget } from '../models/dashboard';
 import { SubscribersComponent } from '../pages/dashboard/widgets/subscribers/subscribers.component';
 import { ViewsComponent } from '../pages/dashboard/widgets/views/views.component';
+import { WatchTimeComponent } from '../pages/dashboard/widgets/watch-time/watch-time.component';
+import { RevenueComponent } from '../pages/dashboard/widgets/revenue/revenue.component';
 
 @Injectable()
 export class DashboardService {
@@ -10,11 +12,34 @@ export class DashboardService {
       id: 1,
       label: 'Subscribers',
       content: SubscribersComponent,
+      rows: 2,
+      cols: 1,
+      backgroundColor: 'whitesmoke',
     },
     {
       id: 2,
       label: 'Views',
       content: ViewsComponent,
+      rows: 2,
+      cols: 1,
+      backgroundColor: 'green',
+      color: 'whitesmoke',
+    },
+    {
+      id: 3,
+      label: 'Watch Time',
+      content: WatchTimeComponent,
+      rows: 1,
+      cols: 1,
+      backgroundColor: 'whitesmoke',
+    },
+    {
+      id: 4,
+      label: 'Revenue',
+      content: RevenueComponent,
+      rows: 1,
+      cols: 1,
+      backgroundColor: 'whitesmoke',
     },
   ]);
 
@@ -23,15 +48,9 @@ export class DashboardService {
       id: 1,
       label: 'Subscribers',
       content: SubscribersComponent,
-      rows: 1,
-      cols: 2,
-    },
-    {
-      id: 2,
-      label: 'Views',
-      content: ViewsComponent,
       rows: 2,
       cols: 1,
+      backgroundColor: 'whitesmoke',
     },
   ]);
 
@@ -90,5 +109,11 @@ export class DashboardService {
         return widgets;
       });
     }
+  }
+
+  removeWidget(id: number) {
+    return this.addedWidgets.update((widgets) =>
+      widgets.filter((w) => w.id !== id),
+    );
   }
 }
