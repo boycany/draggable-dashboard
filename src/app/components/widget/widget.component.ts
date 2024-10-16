@@ -4,6 +4,7 @@ import { NgComponentOutlet } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { WidgetOptionsComponent } from './widget-options/widget-options.component';
+import { CdkDrag, CdkDragPlaceholder } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-widget',
@@ -13,6 +14,8 @@ import { WidgetOptionsComponent } from './widget-options/widget-options.componen
     MatButtonModule,
     MatIconModule,
     WidgetOptionsComponent,
+    CdkDrag,
+    CdkDragPlaceholder,
   ],
   templateUrl: './widget.component.html',
   styleUrl: './widget.component.scss',
@@ -24,4 +27,6 @@ import { WidgetOptionsComponent } from './widget-options/widget-options.componen
 export class WidgetComponent {
   data = input.required<Widget>();
   showOptions = signal(false);
+
+  darkMode = input.required<boolean>();
 }

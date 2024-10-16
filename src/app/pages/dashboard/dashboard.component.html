@@ -1,22 +1,45 @@
-<div class="header">
-  <h2>Channel Dashboard</h2>
-  <button mat-raised-button [mat-menu-trigger-for]="widgetMenu">
-    <mat-icon>add_circle</mat-icon>
-    Add Widget
-  </button>
-  <mat-menu #widgetMenu="matMenu">
-    @for (widget of store.widgetsToAdd(); track widget.id) {
-      <button mat-menu-item (click)="store.addWidget(widget)">
-        {{ widget.label }}
+<div cdkDropListGroup>
+  <div class="header">
+    <h2 class="title">Dashboard Sample</h2>
+    <div class="buttons-group">
+      <button mat-icon-button (click)="darkMode.set(!darkMode())">
+        @if (darkMode()) {
+          <mat-icon>light_mode</mat-icon>
+        } @else {
+          <mat-icon>dark_mode</mat-icon>
+        }
       </button>
-    } @empty {
-      <button mat-menu-item>No widgets to add</button>
+      <!-- <button mat-raised-button [mat-menu-trigger-for]="widgetMenu"> -->
+      <button
+        mat-raised-button
+        (click)="widgetsPanelOpen.set(!widgetsPanelOpen())"
+      >
+        @if (widgetsPanelOpen()) {
+          <mat-icon>cancel</mat-icon>
+        } @else {
+          <mat-icon>add_circle</mat-icon>
+        }
+        Add Widget
+      </button>
+    </div>
+    @if (widgetsPanelOpen()) {
+      <app-widgets-panel
+        cdkDropList
+        (cdkDropListDropped)="widgetPutBack($event)"
+      />
     }
-  </mat-menu>
-</div>
-<div #dashboard class="dashboard-widgets">
-  @for (w of store.addedWidgets(); track w.id) {
-    <!-- If a grid item has children, they should be surrounded by a single container element. -->
-    <app-widget [data]="w"></app-widget>
-  }
+  </div>
+  <div #dashboard class="dashboard-widgets">
+    @for (widget of store.addedWidgets(); track widget.id) {
+      <!-- If a grid item has children, they should be surrounded by a single container element. -->
+      <app-widget
+        cdkDropList
+        [data]="widget"
+        [darkMode]="darkMode()"
+        (cdkDropListDropped)="drop($event)"
+        [cdkDropListData]="widget.id"
+      ></app-widget>
+    }
+    <div cdkDropList (cdkDropListDropped)="drop($event)"></div>
+  </div>
 </div>

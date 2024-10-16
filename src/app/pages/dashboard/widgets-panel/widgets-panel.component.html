@@ -1,0 +1,29 @@
+<!-- <div class="widgets-list">
+  @for (widget of store.widgetsToAdd(); track widget.id) {
+    <button mat-stroked-button>
+      {{ widget.label }}
+    </button>
+  }
+</div> -->
+<mat-action-list style="padding: 8px">
+  @for (widget of store.widgetsToAdd(); track widget.id) {
+    <button
+      cdkDrag
+      [cdkDragData]="widget.id"
+      mat-list-item
+      style="border-radius: 16px"
+      (click)="store.addWidget(widget)"
+    >
+      <!-- <mat-icon matListItemIcon> drag_indicator </mat-icon> -->
+      <!-- <div matListItemTitle> -->
+      {{ widget.label }}
+      <!-- </div> -->
+      <div *cdkDragPlaceholder></div>
+    </button>
+  } @empty {
+    <button mat-list-item style="border-radius: 16px">No widgets to add</button>
+    <!-- <span mat-list-item style="margin: 16px">No widgets to add</span> -->
+  }
+</mat-action-list>
+
+<!-- ** 這裡或許可以考慮改用 Mat Bottom Sheet 來呈現 -->

@@ -1,10 +1,16 @@
 <!-- each grid item must have a single direct child when using animate-css-grid -->
 <div
   class="container mat-elevation-z3"
-  [style.background-color]="data().backgroundColor ?? 'white'"
-  [style.color]="data().color ?? 'inherit'"
+  [style.background-color]="
+    data().backgroundColor ?? 'var(--sys-surface-bright)'
+  "
+  [style.color]="data().color ?? 'var(--sys-inverse-surface)'"
+  cdkDrag
+  cdkDragPreviewContainer="parent"
 >
-  <h5 class="m-0">{{ data().label }}</h5>
+  <!--   [class]="darkMode() ? 'bg-secondary' : 'bg-white'" -->
+  <!-- Add cdkDragPreviewContainer to let the preview inherits the same styles as the dragged item.-->
+  <h5 class="title">{{ data().label }}</h5>
   <button
     mat-icon-button
     class="settings-button"
@@ -18,4 +24,6 @@
   @if (showOptions()) {
     <app-widget-options [(showOptions)]="showOptions" [data]="data()" />
   }
+
+  <div *cdkDragPlaceholder></div>
 </div>

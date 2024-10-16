@@ -1,12 +1,21 @@
 @use "@angular/material" as mat;
 
-$theme: mat.define-theme();
+$custom-theme: mat.define-theme(
+  (
+    color: (
+      // theme-type: light,
+      // primary: mat.$green-palette,
+      use-system-variables: true,
+    ),
+  )
+);
 
 :host {
   position: absolute;
   z-index: 2;
-  background: whitesmoke;
-  color: black;
+  background: var(--sys-surface-container);
+  // color: black;
+  color: var(--sys-on-surface);
   top: 0;
   left: 0;
   border-radius: inherit;
@@ -41,7 +50,8 @@ $theme: mat.define-theme();
     top: 4px;
     // left: 4px;
     right: 50px;
-    @include mat.icon-button-color($theme, $color-variant: error);
+    // color: var(--sys-error);
+    @include mat.icon-button-color($custom-theme, $color-variant: error);
   }
 
   .close-button {

@@ -13,3 +13,19 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.cdk-drop-list-dragging {
+  opacity: 0.5;
+  border-left: 4px solid var(--sys-outline);
+  padding-left: 2px;
+}
+
+.title {
+  color: var(--sys-on-background);
+}
+
+.buttons-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

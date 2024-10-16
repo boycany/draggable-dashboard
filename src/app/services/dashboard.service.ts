@@ -15,7 +15,7 @@ export class DashboardService {
       content: SubscribersComponent,
       rows: 2,
       cols: 1,
-      backgroundColor: 'whitesmoke',
+      // backgroundColor: 'whitesmoke',
     },
     {
       id: 2,
@@ -23,8 +23,8 @@ export class DashboardService {
       content: ViewsComponent,
       rows: 2,
       cols: 1,
-      backgroundColor: 'green',
-      color: 'whitesmoke',
+      // backgroundColor: 'var(--sys-secondary)',
+      // color: 'whitesmoke',
     },
     {
       id: 3,
@@ -32,7 +32,7 @@ export class DashboardService {
       content: WatchTimeComponent,
       rows: 1,
       cols: 1,
-      backgroundColor: 'whitesmoke',
+      // backgroundColor: 'whitesmoke',
     },
     {
       id: 4,
@@ -40,7 +40,7 @@ export class DashboardService {
       content: RevenueComponent,
       rows: 1,
       cols: 1,
-      backgroundColor: 'whitesmoke',
+      // backgroundColor: 'whitesmoke',
     },
     {
       id: 5,
@@ -81,7 +81,7 @@ export class DashboardService {
 
     /** If the widget is not at the end, move it to the right */
     if (index !== this.addedWidgets().length - 1) {
-      console.log('move right index :>> ', index);
+      // console.log('move right index :>> ', index);
       this.addedWidgets.update((widgets) => {
         const target = widgets.splice(index, 1);
         widgets.splice(index + 1, 0, ...target);
@@ -101,7 +101,7 @@ export class DashboardService {
   moveWidgetToLeft(id: number) {
     const index = this.addedWidgets().findIndex((w) => w.id === id);
     if (index !== 0) {
-      console.log('move left index :>> ', index);
+      // console.log('move left index :>> ', index);
       this.addedWidgets.update((widgets) => {
         const target = widgets.splice(index, 1);
         widgets.splice(index - 1, 0, ...target);
@@ -135,8 +135,66 @@ export class DashboardService {
     this.fetchWidgets();
   }
 
+  updateWidgetPosition(sourceWidgetId: number, targetWidgetId: number) {
+    // console.log('sourceWidgetId :>> ', sourceWidgetId);
+    // console.log('targetWidgetId :>> ', targetWidgetId);
+
+    const sourceIndex = this.addedWidgets().findIndex(
+      (w) => w.id === sourceWidgetId,
+    );
+
+    if (sourceIndex === -1) {
+      return;
+    }
+
+    const newWidgets = [...this.addedWidgets()];
+    const sourceWidget = newWidgets.splice(sourceIndex, 1)[0];
+
+    let targetIndex: number;
+    // const targetIndex = newWidgets.findIndex((w) => w.id === targetWidgetId);
+
+    if (!targetWidgetId) {
+      targetIndex = newWidgets.length;
+    } else {
+      targetIndex = newWidgets.findIndex((w) => w.id === targetWidgetId);
+    }
+    if (targetIndex === -1) {
+      return;
+    }
+    // console.log('newWidgets :>> ', newWidgets);
+    // console.log('targetIndex :>> ', targetIndex);
+
+    const insertAt =
+      targetIndex === sourceIndex ? targetIndex + 1 : targetIndex;
+
+    newWidgets.splice(insertAt, 0, sourceWidget);
+    this.addedWidgets.set(newWidgets);
+  }
+
+  insertWidgetAtPosition(sourceWidgetId: number, targetWidgetId: number) {
+    const widgetToAdd = this.widgetsToAdd().find(
+      (w) => w.id === sourceWidgetId,
+    );
+
+    if (!widgetToAdd) {
+      return;
+    }
+
+    const indexOfTargetWidget = this.addedWidgets().findIndex(
+      (w) => w.id === targetWidgetId,
+    );
+    const positionToAdd =
+      indexOfTargetWidget === -1
+        ? this.addedWidgets().length
+        : indexOfTargetWidget;
+
+    const newWidets = [...this.addedWidgets()];
+    newWidets.splice(positionToAdd, 0, widgetToAdd);
+    this.addedWidgets.set(newWidets);
+  }
+
   saveWidgets = effect(() => {
-    console.log('this.addedWidgets() :>> ', this.addedWidgets());
+    // console.log('this.addedWidgets() :>> ', this.addedWidgets());
     const widgetsWithoutContent: Partial<Widget>[] = this.addedWidgets().map(
       (w) => ({ ...w }),
     );
