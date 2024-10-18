@@ -1,6 +1,5 @@
 import {
   Component,
-  computed,
   effect,
   ElementRef,
   inject,
@@ -8,12 +7,10 @@ import {
   viewChild,
 } from '@angular/core';
 import { WidgetComponent } from '../../components/widget/widget.component';
-import { Widget } from '../../models/dashboard';
-import { SubscribersComponent } from './widgets/subscribers/subscribers.component';
 import { DashboardService } from '../../services/dashboard.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatMenu, MatMenuModule } from '@angular/material/menu';
+import { MatMenuModule } from '@angular/material/menu';
 import { wrapGrid } from 'animate-css-grid';
 import {
   CdkDragDrop,
